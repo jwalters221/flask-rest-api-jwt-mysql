@@ -23,7 +23,6 @@ CORS(app)
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 jwt = JWTManager(app)
 
-
 # Provide a method to create access tokens. The create_jwt()
 # function is used to actually generate the token
 @app.route('/login', methods=['POST'])
@@ -68,10 +67,10 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/person', methods=['POST', 'GET'])
-def handle_person():
+@app.route('/register', methods=['POST', 'GET'])
+def register():
     """
-    Create person and retrieve all persons
+    Register user
     """
 
     # POST request
@@ -82,21 +81,21 @@ def handle_person():
             raise APIException("You need to specify the request body as a json object", status_code=400)
         if 'username' not in body:
             raise APIException('You need to specify the username', status_code=400)
-        if 'email' not in body:
-            raise APIException('You need to specify the email', status_code=400)
+        if 'password' not in body:
+            raise APIException('You need to specify the password', status_code=400)
 
-        user1 = Person(username=body['username'], email=body['email'])
-        db.session.add(user1)
+        user = User(username=body['username'], password=body['password'])
+        db.session.add(user)
         db.session.commit()
         return "ok", 200
 
     # GET request
-    if request.method == 'GET':
-        all_people = Person.query.all()
-        all_people = list(map(lambda x: x.serialize(), all_people))
-        return jsonify(all_people), 200
+    #if request.method == 'GET':
+    #    all_people = User.query.all()
+    #    all_people = list(map(lambda x: x.serialize(), all_people))
+    #    return jsonify(all_people), 200
 
-    return "Invalid Method", 404
+    # return "Invalid Method", 404
 
 
 @app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
