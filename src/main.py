@@ -42,7 +42,7 @@ def login():
 
     usercheck = User.query.filter_by(username=username, password=password).first()
     if usercheck == None:
-        return jsonify({"msg": "Bad username or password"}), 401
+        return jsonify({"msg": "Invalid credentials provided"}), 401
 
     #if username != 'test' or password != 'test':
     #    return jsonify({"msg": "Bad username or password"}), 401
