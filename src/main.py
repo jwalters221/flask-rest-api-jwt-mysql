@@ -56,7 +56,7 @@ def login():
 @jwt_required
 def protected():
     # Access the identity of the current user with get_jwt_identity
-    return jsonify({'hello_from': get_jwt_identity()}), 200
+    return jsonify({'hello from': get_jwt_identity()}), 200
 
 
 @app.errorhandler(APIException)
