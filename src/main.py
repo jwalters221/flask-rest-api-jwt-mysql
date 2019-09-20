@@ -35,9 +35,9 @@ def login():
     password = params.get('password', None)
 
     if not username:
-        return jsonify({"msg": "Missing username parameter"}), 400
+        return jsonify({"msg": "Missing username in request"}), 400
     if not password:
-        return jsonify({"msg": "Missing password parameter"}), 400
+        return jsonify({"msg": "Missing password in request"}), 400
 
     # check for user in database
     usercheck = User.query.filter_by(username=username, password=password).first()
