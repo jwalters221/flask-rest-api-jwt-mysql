@@ -43,9 +43,6 @@ def login():
     if usercheck == None:
         return jsonify({"msg": "Invalid credentials provided"}), 401
 
-    #if username != 'test' or password != 'test':
-    #    return jsonify({"msg": "Bad username or password"}), 401
-
     # Identity can be any data that is json serializable
     ret = {'jwt': create_jwt(identity=username)}
     return jsonify(ret), 200
