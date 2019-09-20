@@ -39,11 +39,14 @@ def login():
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
+    # check for user in database
     usercheck = User.query.filter_by(username=username, password=password).first()
+
+    # if user not found
     if usercheck == None:
         return jsonify({"msg": "Invalid credentials provided"}), 401
 
-    # Identity can be any data that is json serializable
+    #if user found, Identity can be any data that is json serializable
     ret = {'jwt': create_jwt(identity=username)}
     return jsonify(ret), 200
 
