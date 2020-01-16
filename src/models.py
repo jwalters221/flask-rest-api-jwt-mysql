@@ -13,9 +13,11 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
 
+    #what is returned when instance is printed
     def __repr__(self):
         return '<Person %r>' % self.username
 
+    #what is returned through API
     def serialize(self):
         return {
             "username": self.username,
