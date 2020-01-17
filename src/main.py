@@ -114,10 +114,16 @@ def get_single_person(person_id):
         if user1 is None:
             raise APIException('User not found', status_code=404)
 
-        if "username" in body:
-            user1.username = body["username"]
-        if "email" in body:
-            user1.email = body["email"]
+        #if "username" in body:
+        #    user1.username = body["username"]
+        #if "email" in body:
+        #    user1.email = body["email"]
+
+        #stmt = Person.update().\
+        #    values(username = body["username"], email = body["email"])
+
+        Person.query.filter_by(id=person_id).update({"username":body["username"], "email":body["email"]})
+
         db.session.commit()
 
         return jsonify(user1.serialize()), 200
