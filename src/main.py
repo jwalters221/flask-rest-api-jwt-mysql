@@ -96,7 +96,14 @@ def register():
     #    return jsonify(all_people), 200
 
     # return "Invalid Method", 404
+@app.route('/people', methods=['GET'])
+def get_people():
+    if request.method == 'GET':
+        all_people = Person.query.all()
+        all_people = list(map(lambda x: x.serialize(), all_people))
+        return jsonify(all_people), 200
 
+    return "Invalid Method", 404
 
 @app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
 def get_single_person(person_id):
